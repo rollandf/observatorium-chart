@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observatorium-operator
+  labels:
+    {{- include "observatorium.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      control-plane: observatorium-operator
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        control-plane: observatorium-operator
+    spec:
+      containers:
+      - name: observatorium-operator
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args:
+          - "--log-level=debug"
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      terminationGracePeriodSeconds: 10

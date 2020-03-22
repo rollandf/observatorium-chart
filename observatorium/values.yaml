@@ -1,0 +1,44 @@
+# Default values for observatorium.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/observatorium/observatorium-operator
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: observatorium-operator
+fullnameOverride: ""
+
+labels:
+  app.kubernetes.io/component: observatorium-operator
+  app.kubernetes.io/name: observatorium-operator
+  app.kubernetes.io/part-of: observatorium
+  control-plane: observatorium-operator
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 600Mi
+  requests:
+    cpu: 100m
+    memory: 600Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
